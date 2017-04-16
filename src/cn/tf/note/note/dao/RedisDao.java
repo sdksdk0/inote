@@ -26,5 +26,10 @@ public interface RedisDao {
 
 	public boolean updateNoteToRedis(String noteBookRowkey, String string,
 			String string2);
+	
+	
+	public void saveUserToRedis(String userName, String string);
+
+	public void  delUserToRedis(String userName);
 
 }

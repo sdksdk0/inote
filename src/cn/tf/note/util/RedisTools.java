@@ -34,7 +34,8 @@ public class RedisTools {
 		config.setMaxIdle(1000);//最大空闲
 		config.setMaxTotal(10240);//最大连接数
 		if(pool == null){//config：配置参数； 6379：默认端口号，可以更改；e_learning：密码
-			pool = new JedisPool(config, Constants.REDIS_IP, Constants.REDIS_PORT, 0);
+			//pool = new JedisPool(config, Constants.REDIS_IP, Constants.REDIS_PORT, 0);
+			pool = new JedisPool(config,  Constants.REDIS_IP, Constants.REDIS_PORT, Constants.REDIS_TIMOUT, Constants.REDIS_AUTH);
 		}
 
 

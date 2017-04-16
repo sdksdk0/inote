@@ -1,5 +1,7 @@
 package cn.tf.note.login.dao;
 
+import cn.tf.note.login.bean.User;
+
 public interface LoginDao {
 
 	/**
@@ -9,5 +11,6 @@ public interface LoginDao {
 	 * @return
 	 */
 	public boolean getLoginInfo(String userName, String password)throws Exception;
-	
+
+
 }

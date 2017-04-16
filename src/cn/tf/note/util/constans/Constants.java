@@ -14,6 +14,16 @@ public class Constants {
 	public static  HBaseAdmin ADMIN ;//表管理类
 	public static Connection CONNECTION ;
 	public static long HBASE_WRITE_BUFFER;  //批量写的buffer大小
+	
+	/**用户信息**/
+	public static final String USER_TABLE_NAME="u";//表名
+	public static final String USER_FAMLIY_USERINFO="ui";//列族1，用户信息
+	public static final String USER_NOTEBOOKINFO_CLU_USERNAME="nbn";//列1，用户名
+	public static final String USER_NOTEBOOKINFO_CLU_CREATETIME="ct";//列2：用户注册时间
+	public static final String USER_NOTEBOOKINFO_CLU_PASSWORD="pwd";//列3：用户密码
+	public static final String USER_NOTEBOOKINFO_CLU_EMAIL="em";//列4：邮箱
+	
+	
 	/**笔记本信息**/
 	public static final String NOTEBOOK_TABLE_NAME="nb";//表名
 	public static final String NOTEBOOK_FAMLIY_NOTEBOOKINFO="nbi";//列族1，笔记本信息
@@ -52,7 +62,7 @@ public class Constants {
 	public static final String STAR=    Constants.ROWKEY_SEPARATOR+"0000000000001" ;//收藏
 	public static final String ACTIVITY=Constants.ROWKEY_SEPARATOR+"0000000000002" ;//活动
 	/**分隔符*/
-	public static final String STRING_SEPARATOR = "|" ;
+	public static final String STRING_SEPARATOR = ":" ;
 	public static final String ROWKEY_SEPARATOR = "_" ;//rowkey的分隔符
 	
 }

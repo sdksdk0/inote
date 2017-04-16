@@ -37,11 +37,11 @@
 					</ul>
 				</div>
 			</div>
-			<a id="logo"  title="云笔记"></a>
 			<ul id="header-nav">
+				<li > <img src="<%=basePath%>/images/logo.jpg.jpg" alt="云笔记"><a></a></li>
 				<li class="nav-current" id="index-tab"><a
 					>首页</a></li>
-				<li id="noteintro-tab"><a target="_blank" href="http://192.168.0.220:8081/inote/login/showloginpage3"
+				<li id="noteintro-tab"><a target="_blank" href="http://localhost:8100/inote/login/showloginpage"
 					>云笔记</a></li>
 				<li id="groupintro-tab"><a
 					>云协作</a></li>

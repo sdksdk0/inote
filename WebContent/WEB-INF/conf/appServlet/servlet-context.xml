@@ -25,6 +25,9 @@
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	
+	
 	<!-- severlet初始化 -->
 	<bean id="InitStart" lazy-init="false" init-method="InitSystem" class="cn.tf.note.util.InitStart" />
 	<mvc:annotation-driven />

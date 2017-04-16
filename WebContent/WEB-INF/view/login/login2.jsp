@@ -25,7 +25,7 @@ function refreshMe(obj) {
     <div class="hd">
         <div class="wrap">
             <div class="hd-main">
-            <h1 class="logo"><img src="<%=basePath%>/images/663ffc1b.png" alt="云笔记"></h1>
+            <h2 class="logo"><img src="<%=basePath%>/images/logo.jpg.jpg" alt="云笔记"></h2>
             <div class="nav">
                 <a target="_blank" href="<%=basePath%>">首页&nbsp;</a>
                 |
@@ -58,24 +58,10 @@ function refreshMe(obj) {
                 </div>
                 <div class="row row-btn">
                     <input name="提交" data-node="loginSubmit" class="login-btn btn" value="" type="submit" onclick="login()">
-                    <input  target="_blank" data-node="loginRegist" class="login-btn btn2">
+                    <input  target="_blank" data-node="loginRegist" class="login-btn btn2"    onclick="toReg()">
                 </div>
             </form>
-            <div class="login-middle"></div>
-            <div class="login-right">
-                <h2>其他账号登录：</h2>
-                <div class="row-btn">
-                    <span class="sina-btn btn2" >
-                    </span>
-                    <span class="qq-btn btn2" >
-                    </span>
-                    <span class="tqq-btn btn2" >
-                    </span>
-                    <span class="hw-btn btn2" >
-                    </span>
-                </div>
-                
-            </div>
+
         </div>
         </div>
         <div class="bd-feture">
@@ -98,6 +84,6 @@ function refreshMe(obj) {
     </div>
 
     <script src="<%=basePath%>/javascripts/5c4da2bd.js"></script>
-
+    <script src="<%=basePath%>/javascripts/login/reg.js"></script>
 
 <div><div id="passportusernamelist" class="domainSelector" style="display: none;"><table cellpadding="0" cellspacing="0" width="100%">       <tbody><tr><td class="title">请选择或继续输入...</td></tr>    <tr><td>&nbsp;</td></tr></tbody></table></div></div></body></html>

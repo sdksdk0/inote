@@ -170,4 +170,17 @@ public class RedisDaoImpl implements RedisDao {
 		}
 		return true;
 	}
+	@Override
+	public void saveUserToRedis(String key, String value) {
+		RedisTools.set(key, value);
+	}
+	@Override
+	public void delUserToRedis(String key) {
+		RedisTools.del(key);
+
+	}
+	
+	
+	
+	
 }

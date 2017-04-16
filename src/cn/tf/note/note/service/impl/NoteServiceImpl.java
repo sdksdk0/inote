@@ -143,7 +143,7 @@ public class NoteServiceImpl implements NoteService {
 		// list转json
 		String noteListToJson = JSONArray.fromObject(noteList).toString();
 		// 封装二维数组，[[famliy，qualifier，value],……………………]，调用dao的公共方法
-		String famQuaVals[][] = new String[4][3];
+		String famQuaVals[][] = new String[4][3];  //4行3列，列族列值
 		famQuaVals[0][0] = Constants.NOTEBOOK_FAMLIY_NOTEBOOKINFO;
 		famQuaVals[0][1] = Constants.NOTEBOOK_NOTEBOOKINFO_CLU_NOTEBOOKNAME;
 		famQuaVals[0][2] = noteBookName;
