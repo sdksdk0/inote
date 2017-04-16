@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="inote"
+  id="myeclipse.1406685365512"
+  context-root="/inote"
+  j2ee-spec="5.0"
+  archive="inote.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebContent" />
+  </attributes>
+</project-module>
+
