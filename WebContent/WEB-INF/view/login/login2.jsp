@@ -12,6 +12,10 @@
         <meta name="viewport" content="width=device-width">
         <title>云笔记</title>
         <link rel="stylesheet" href="<%=basePath%>/images/main.css" type="text/css">
+        <link href="<%=basePath%>/styles/autoemail.css" type="text/css" rel="stylesheet" />
+         <script src="<%=basePath%>/javascripts/jquery-1.12.4.js"></script>
+<script type="text/javascript"  src="<%=basePath%>/javascripts/login/reg.js"></script>
+<script src="<%=basePath%>/javascripts/login/emailComplete.js"></script>	  
         <script type="text/javascript">
 function login(){
 	document.getElementById('login_form').submit();
@@ -25,7 +29,7 @@ function refreshMe(obj) {
     <div class="hd">
         <div class="wrap">
             <div class="hd-main">
-            <h2 class="logo"><img src="<%=basePath%>/images/logo.jpg.jpg" alt="云笔记"></h2>
+            <h2 class="logo"><a href="<%=basePath%>"><img src="<%=basePath%>/images/logo.jpg.jpg" alt="云笔记" /></a></h2>
             <div class="nav">
                 <a target="_blank" href="<%=basePath%>">首页&nbsp;</a>
                 |
@@ -43,7 +47,7 @@ function refreshMe(obj) {
                     &nbsp;
                 </p>
             </div>
-            <form class="login-left"  action="<%=basePath%>/login/loginnow" method="post" id ="login_form">
+            <form class="login-left"  action="<%=basePath%>/login/loginnow"  id ="login_form">
                 <h2>账号登录：</h2>
                 <div class="row text-row">
                     <input name="loginName" id="login_name" placeholder="账号" data-node="loginUser" class="login-username text" type="text">
@@ -57,7 +61,7 @@ function refreshMe(obj) {
                     <a class="login-nopassword" >忘记密码?</a>
                 </div>
                 <div class="row row-btn">
-                    <input name="提交" data-node="loginSubmit" class="login-btn btn" value="" type="submit" onclick="login()">
+                    <input name="提交" data-node="loginSubmit"   class="login-btn btn"    onclick="login()">
                     <input  target="_blank" data-node="loginRegist" class="login-btn btn2"    onclick="toReg()">
                 </div>
             </form>
@@ -83,7 +87,7 @@ function refreshMe(obj) {
         </div>
     </div>
 
-    <script src="<%=basePath%>/javascripts/5c4da2bd.js"></script>
+<%--     <script src="<%=basePath%>/javascripts/5c4da2bd.js"></script> --%>
     <script src="<%=basePath%>/javascripts/login/reg.js"></script>
 
 <div><div id="passportusernamelist" class="domainSelector" style="display: none;"><table cellpadding="0" cellspacing="0" width="100%">       <tbody><tr><td class="title">请选择或继续输入...</td></tr>    <tr><td>&nbsp;</td></tr></tbody></table></div></div></body></html>

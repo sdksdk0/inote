@@ -21,13 +21,14 @@ $(function () {
         opacity: 1,
 	     radius: 4
     });
+    $('#login_name').emailComplete({
+        opacity: 1,
+	     radius: 4
+    });
 })
 
-
-	
 			  
 			function checkInfo(){
-			
 				
 				$("#username_msg").css("color","red");
 				$("#username_msg").css("font-size","14px");
@@ -229,14 +230,40 @@ $(function() {
 		
 		if(flag1==true && flag2==true && flag4==true   && flag6==true &&   agree>0 ){
 			$.post("/inote/login/register",$("#personRegForm").serialize(), function(data){
-					$.alert('恭喜你注册成功,请登录');
+				if(data.status == 200){
+					alert('恭喜你注册成功,请登录');
 					location="/inote/login/showloginpage2";
-
+				}else{
+					alert("注册失败！");
+				}
 			});
-			
 		}
-
 	}
 
+	
+	function login(){
+		var login_name=$("#login_name").val();
+		var password=$("#password").val();
+		var reg=/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/; 
+		if(login_name==""){
+			alert("邮箱不能为空");
+			return;
+		}else  if(!reg.test(login_name)){
+			alert("请输入正确的邮箱格式");
+			return;
+		}else  if(password==""){
+			alert("密码不能为空");
+		}else{
+			$.post("/inote/login/loginnow",$("#login_form").serialize(), function(data){
+				if(data.status == 200){
+					location="/inote/note/inotecenter";
+				}else{
+					alert("用户名或密码错误!");
+				}
+			});
+		}
+		
+		
+	}
 
 

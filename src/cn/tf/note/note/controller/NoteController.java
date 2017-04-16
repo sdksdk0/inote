@@ -42,6 +42,14 @@ public class NoteController {
 	 * @param request
 	 * @return
 	 */
+	@RequestMapping("/inotecenter")
+	public String inotecenter(HttpServletRequest request)throws Exception{
+		return "note/inotecenter";
+	}
+	
+	
+	
+	
 	@RequestMapping("/getAllNoteBook")
 	public ModelAndView getAllNoteBook(HttpServletRequest request) {
 		ModelAndView modelAndView = null;

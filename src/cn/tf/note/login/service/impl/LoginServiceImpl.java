@@ -12,7 +12,9 @@ import cn.tf.note.login.service.LoginService;
 import cn.tf.note.note.dao.DataDao;
 import cn.tf.note.note.dao.RedisDao;
 import cn.tf.note.note.dao.impl.DataDaoImpl;
+import cn.tf.note.util.ExceptionUtil;
 import cn.tf.note.util.RedisTools;
+import cn.tf.note.util.TaotaoResult;
 import cn.tf.note.util.constans.Constants;
 
 
@@ -25,22 +27,37 @@ public class LoginServiceImpl implements LoginService{
 	private DataDao dataDao=new DataDaoImpl();
 	
 	@Override
-	public boolean login(String userName, String password) throws Exception{
-		return loginDao.getLoginInfo(userName,password);
+	public TaotaoResult login(String userName, String password) throws Exception{
+		//return loginDao.getLoginInfo(userName,password);
 		
+		try {
+			boolean exists = RedisTools.exists("INOTE_USER_INFO:"+ userName+ Constants.STRING_SEPARATOR + password);
+			System.out.println("exists"+exists);
+			if(exists){
+				System.out.println("用户名正确");
+				return TaotaoResult.ok();
+			}else{
+				System.out.println("用户名或密码错误");
+				return TaotaoResult.build(400, "用户名或密码错误");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+		}
 	}
 
 	@Override
-	public boolean createUser(User user) {
+	public TaotaoResult createUser(User user) {
 
-		
-		addUserToRedis(user.getLoginName(), user.getPassword(),
+		TaotaoResult result;
+		result=addUserToRedis(user.getLoginName(), user.getPassword(),
 				user.getPersonalMail(), user.getRegistTime());
 		
-		addUserToHbase(user.getLoginName(),
+		result=addUserToHbase(user.getLoginName(),
 				user.getPassword(), user.getPersonalMail(),
 				user.getRegistTime());
-		return true;
+		return result;
 		/*boolean ifsuccess = false;
 		// redis是否成功
 		ifsuccess = addUserToRedis(user.getLoginName(), user.getPassword(),
@@ -103,7 +120,7 @@ public class LoginServiceImpl implements LoginService{
 	}
 
 	// 添加到hbase
-	private boolean addUserToHbase(String loginName, String password,
+	private TaotaoResult addUserToHbase(String loginName, String password,
 			String personalMail, long registTime) {
 
 		// 创建rowkey
@@ -124,13 +141,17 @@ public class LoginServiceImpl implements LoginService{
 		famQuaVals[3][1] = Constants.USER_NOTEBOOKINFO_CLU_EMAIL;
 		famQuaVals[3][2] = personalMail; // 邮箱
 		// 调用dao的公共方法
-		boolean insertData = dataDao.insertData(Constants.USER_TABLE_NAME,
-				rowKey, famQuaVals);
-		return insertData;
+		 try {
+			dataDao.insertData(Constants.USER_TABLE_NAME,
+					rowKey, famQuaVals);
+		} catch (Exception e) {
+			return TaotaoResult.build(400, "hbase缓存错误");
+		}		
+		 return TaotaoResult.ok();
 	}
 
 	// 添加到redis
-	private void addUserToRedis(String loginName, String password,
+	private TaotaoResult addUserToRedis(String loginName, String password,
 			String personalMail, long registTime) {
 		StringBuffer userString = new StringBuffer();
 
@@ -139,7 +160,14 @@ public class LoginServiceImpl implements LoginService{
 				.append(personalMail).append(Constants.STRING_SEPARATOR)
 				.append(registTime);
 		// 保存redis，用戶名為key，笔记本信息为value
-		RedisTools.set("INOTE_USER_INFO:"+ personalMail+ Constants.STRING_SEPARATOR+"password", userString.toString());// 将笔记本存放到redis中
+		try {
+			RedisTools.set("INOTE_USER_INFO:"+ personalMail+ Constants.STRING_SEPARATOR + password, userString.toString());// 将笔记本存放到redis中
+			
+		} catch (Exception e) {
+			return TaotaoResult.build(400, "redis缓存错误");
+		}
+
+		return TaotaoResult.ok();
 		
 	}
 
@@ -153,6 +181,6 @@ public class LoginServiceImpl implements LoginService{
 				.append(personalMail).append(Constants.STRING_SEPARATOR)
 				.append(registTime);
 		// 从redis中删除list中的笔记本
-		RedisTools.del("INOTE_USER_INFO:"+ personalMail+ Constants.STRING_SEPARATOR+"password");
+		RedisTools.del("INOTE_USER_INFO:"+ personalMail+ Constants.STRING_SEPARATOR+password);
 	}
 }

@@ -12,11 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.tf.note.login.bean.User;
 import cn.tf.note.login.service.LoginService;
 import cn.tf.note.login.service.impl.LoginServiceImpl;
+import cn.tf.note.util.ExceptionUtil;
+import cn.tf.note.util.TaotaoResult;
 import cn.tf.note.util.constans.Constants;
 
 
@@ -59,54 +62,48 @@ public class LoginController {
 	
 	//去注册
 	@RequestMapping("/register")
-	public ModelAndView register(HttpServletRequest request, User user,HttpSession session)throws Exception{
-		ModelAndView modelAndView = null;
+	@ResponseBody
+	public TaotaoResult register(HttpServletRequest request, User user,HttpSession session)throws Exception{
+		
 		// 创建时间戳
 		Long createTime = System.currentTimeMillis();
 		user.setRegistTime(createTime);
 		//密码加密
 		user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
-		//System.out.println("用户名："+user.getLoginName()+user.getPassword()+user.getPersonalMail());
-			loginService.createUser(user);
-			
-			//发送激活邮件
-			
-			
-			
-			/*if(ifsuccess==true){
-				return "login/login2";
-			}else{
-				logger.error("创建用户失败：userName:"+user.getLoginName()+";");
-				return "error/404";
-			}*/
-			return modelAndView;
+		TaotaoResult result;
+		try {
+			result = loginService.createUser(user);
+		} catch (Exception e) {
+			logger.error("创建用户失败：userName:"+user.getLoginName()+";");
+			e.printStackTrace();
+			return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+		}
+		return result;
 	}
 	
 	@RequestMapping("/loginnow")
-	public String loginin(HttpServletRequest request,String loginName,String password){
-		
+	@ResponseBody
+	public TaotaoResult loginin(HttpServletRequest request,String loginName,String password){
+		TaotaoResult result=null;
 		try {
 			if (loginName==null||"".equals(loginName)||password==null||"".equals(password)) {
-				return "error/404";
+				return TaotaoResult.build(400, "邮箱密码不能为空或");
 			}
 			password=DigestUtils.md5DigestAsHex(password.getBytes());
-			boolean isfucess = loginService.login(loginName,password);
-			if(isfucess){
-				request.getSession().setAttribute(Constants.USER_INFO, loginName.trim());
-				return "note/inotecenter";
+			 result = loginService.login(loginName,password);
+			 System.out.println("result.getStatus()"+result.getStatus());
+			if(result.getStatus()==200){
+				request.getSession().setAttribute(Constants.USER_INFO, loginName.trim());	
 			}else{
-				return "error/404";
+				return TaotaoResult.build(400, "用户名或密码错误");
 			}
-			
-			
 		} catch (Exception e) {
 			logger.error("登陆失败：loginName:"+loginName+";",e);
 			e.printStackTrace();
-			return "error/404";
+			return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
 		}
-		
-	
+		System.out.println(result.getStatus());
+		return result;
 	}
 
-	
 }

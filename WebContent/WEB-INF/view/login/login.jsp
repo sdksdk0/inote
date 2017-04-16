@@ -9,11 +9,11 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>云笔记</title>
+<title>小汇云笔记</title>
 <meta name="keywords"
-	content="云笔记 - 记录，成为更好的自己, , office, 办公软件, 云笔记, 印象笔记, 笔记, tower, 云笔记, 笔记, 团队协作, 协作, etc.">
+	content="小汇云笔记 - 记录，成为更好的自己, , office, 办公软件, 云笔记, 印象笔记, 笔记, tower, 云笔记, 笔记, 团队协作, 协作, etc.">
 <meta name="description"
-	content="云笔记是个人与团队的线上资料库，信息全平台覆盖， 随时随地、随心访问所有资料。团队成员在这里高效协作，无缝沟通。网易出品，安全可靠。2500万用户的选择。">
+	content="小汇云笔记是个人与团队的线上资料库，信息全平台覆盖， 随时随地、随心访问所有资料。团队成员在这里高效协作，无缝沟通，安全可靠。2500万用户的选择。">
 <link type="text/css" rel="stylesheet"
 	href="<%=basePath%>/styles/7ac21bf4.css">
 <script src="<%=basePath%>/javascripts/rlog.js" async=""
@@ -25,7 +25,7 @@
 	<div id="header">
 		<div id="header-warp">
 			<div id="header-right">
-				<a id="register" href="">注册</a>
+				<a id="register" href="/inote/login/toReg">注册</a>
 				<div id="user-info">
 					<span id="dropdown-button">登录网页版</span> <i id="dropdown"></i>
 					<ul id="dropdown-list">

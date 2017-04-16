@@ -1,6 +1,7 @@
 package cn.tf.note.login.dao;
 
 import cn.tf.note.login.bean.User;
+import cn.tf.note.util.TaotaoResult;
 
 public interface LoginDao {
 
@@ -10,7 +11,7 @@ public interface LoginDao {
 	 * @param loginKey
 	 * @return
 	 */
-	public boolean getLoginInfo(String userName, String password)throws Exception;
+	public TaotaoResult getLoginInfo(String userName, String password)throws Exception;
 
 
 }

@@ -101,7 +101,12 @@
                         </table>
                     </form>
 				</div>
-				
+				<div class="uside">
+                    <div class="side-top nonebor tologin">
+                        <p class="tit">已有小汇云账号?</p>
+                        <a class="ubg bigtn secbig hov_on" href="/inote/login/showloginpage2">登录</a>
+                    </div>
+               </div>
             </div>
         </div>
     </body>
