@@ -229,12 +229,9 @@ $(function() {
 		
 		if(flag1==true && flag2==true && flag4==true   && flag6==true &&   agree>0 ){
 			$.post("/inote/login/register",$("#personRegForm").serialize(), function(data){
-				if(data.status == 200){
-					alert('我们发送了一封激活邮件,请打开您的邮箱进行激活！三十分钟内有效');
+					$.alert('恭喜你注册成功,请登录');
 					location="/inote/login/showloginpage2";
-				} else {
-					alert("注册失败！");
-				}
+
 			});
 			
 		}

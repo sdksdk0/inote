@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import cn.tf.note.login.bean.User;
 import cn.tf.note.login.service.LoginService;
@@ -58,21 +59,27 @@ public class LoginController {
 	
 	//去注册
 	@RequestMapping("/register")
-	public String register(HttpServletRequest request, User user,HttpSession session)throws Exception{
-		
+	public ModelAndView register(HttpServletRequest request, User user,HttpSession session)throws Exception{
+		ModelAndView modelAndView = null;
 		// 创建时间戳
 		Long createTime = System.currentTimeMillis();
 		user.setRegistTime(createTime);
 		//密码加密
 		user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
 		//System.out.println("用户名："+user.getLoginName()+user.getPassword()+user.getPersonalMail());
-			boolean  ifsuccess=loginService.createUser(user);
-			if(ifsuccess==true){
+			loginService.createUser(user);
+			
+			//发送激活邮件
+			
+			
+			
+			/*if(ifsuccess==true){
 				return "login/login2";
 			}else{
 				logger.error("创建用户失败：userName:"+user.getLoginName()+";");
 				return "error/404";
-			}
+			}*/
+			return modelAndView;
 	}
 	
 	@RequestMapping("/loginnow")
@@ -82,19 +89,23 @@ public class LoginController {
 			if (loginName==null||"".equals(loginName)||password==null||"".equals(password)) {
 				return "error/404";
 			}
+			password=DigestUtils.md5DigestAsHex(password.getBytes());
+			boolean isfucess = loginService.login(loginName,password);
+			if(isfucess){
+				request.getSession().setAttribute(Constants.USER_INFO, loginName.trim());
+				return "note/inotecenter";
+			}else{
+				return "error/404";
+			}
 			
 			
-			
-			
-			
-			
-			request.getSession().setAttribute(Constants.USER_INFO, loginName.trim());
 		} catch (Exception e) {
 			logger.error("登陆失败：loginName:"+loginName+";",e);
 			e.printStackTrace();
+			return "error/404";
 		}
 		
-		return "note/inotecenter";
+	
 	}
 
 	

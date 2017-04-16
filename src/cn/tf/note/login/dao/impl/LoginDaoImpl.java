@@ -24,13 +24,17 @@ public class LoginDaoImpl implements LoginDao {
 	public boolean getLoginInfo(String userName, String password)
 			throws Exception {
 		boolean flag = false;
-		String userInfo = RedisTools.get(userName);
+		
+		flag=RedisTools.exists("INOTE_USER_INFO:"+ userName+ Constants.STRING_SEPARATOR+"password");
+		
+		
+		/*String userInfo = RedisTools.get(userName);
 		if (userInfo != null) {
 			String[] split = userInfo.split("\\" + Constants.STRING_SEPARATOR);
 			if (password.equals(split[0])) {
 				flag = true;
 			}
-		}
+		}*/
 		return flag;
 	}
 

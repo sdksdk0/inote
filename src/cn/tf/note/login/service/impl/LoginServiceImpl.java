@@ -134,12 +134,12 @@ public class LoginServiceImpl implements LoginService{
 			String personalMail, long registTime) {
 		StringBuffer userString = new StringBuffer();
 
-		userString.append(loginName + Constants.ROWKEY_SEPARATOR)
+		userString.append(loginName + Constants.STRING_SEPARATOR)
 				.append(password + Constants.STRING_SEPARATOR)
 				.append(personalMail).append(Constants.STRING_SEPARATOR)
 				.append(registTime);
 		// 保存redis，用戶名為key，笔记本信息为value
-		RedisTools.set("INOTE_USER_INFO:"+ loginName+ Constants.ROWKEY_SEPARATOR+"password", userString.toString());// 将笔记本存放到redis中
+		RedisTools.set("INOTE_USER_INFO:"+ personalMail+ Constants.STRING_SEPARATOR+"password", userString.toString());// 将笔记本存放到redis中
 		
 	}
 
@@ -148,11 +148,11 @@ public class LoginServiceImpl implements LoginService{
 			String personalMail, long registTime) {
 		StringBuffer userString = new StringBuffer();
 		// 拼笔记本信息
-		userString.append(loginName + Constants.ROWKEY_SEPARATOR)
+		userString.append(loginName + Constants.STRING_SEPARATOR)
 				.append(password + Constants.STRING_SEPARATOR)
 				.append(personalMail).append(Constants.STRING_SEPARATOR)
 				.append(registTime);
 		// 从redis中删除list中的笔记本
-		RedisTools.del("INOTE_USER_INFO:"+ loginName+ Constants.ROWKEY_SEPARATOR+"password");
+		RedisTools.del("INOTE_USER_INFO:"+ personalMail+ Constants.STRING_SEPARATOR+"password");
 	}
 }
