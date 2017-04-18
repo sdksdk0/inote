@@ -363,5 +363,23 @@ public class RedisTools {
 			return null;
 		}
 	}
+
+	public static long expire(String key, int second) {
+		Jedis jedis = pool.getResource();
+		long result = jedis.expire(key, second);
+		jedis.close();
+		return result;
+		
+	}
+	
+	public static long rename(String oldkey, String newkey) {
+		Jedis jedis = pool.getResource();
+		long result = jedis.renamenx(oldkey, newkey);
+		jedis.close();
+		return result;
+		
+	}
+	
+
 	
 }

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +20,7 @@ import cn.tf.note.login.bean.User;
 import cn.tf.note.login.service.LoginService;
 import cn.tf.note.login.service.impl.LoginServiceImpl;
 import cn.tf.note.util.ExceptionUtil;
+import cn.tf.note.util.RedisTools;
 import cn.tf.note.util.TaotaoResult;
 import cn.tf.note.util.constans.Constants;
 
@@ -70,9 +72,11 @@ public class LoginController {
 		user.setRegistTime(createTime);
 		//密码加密
 		user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+		user.setType(0);   //未激活0
+		
 		TaotaoResult result;
 		try {
-			result = loginService.createUser(user);
+			result = loginService.createUser(request,user,session);
 		} catch (Exception e) {
 			logger.error("创建用户失败：userName:"+user.getLoginName()+";");
 			e.printStackTrace();
@@ -87,7 +91,7 @@ public class LoginController {
 		TaotaoResult result=null;
 		try {
 			if (loginName==null||"".equals(loginName)||password==null||"".equals(password)) {
-				return TaotaoResult.build(400, "邮箱密码不能为空或");
+				return TaotaoResult.build(400, "邮箱或密码不能为空");
 			}
 			password=DigestUtils.md5DigestAsHex(password.getBytes());
 			 result = loginService.login(loginName,password);
@@ -95,7 +99,7 @@ public class LoginController {
 			if(result.getStatus()==200){
 				request.getSession().setAttribute(Constants.USER_INFO, loginName.trim());	
 			}else{
-				return TaotaoResult.build(400, "用户名或密码错误");
+				return TaotaoResult.build(400, "邮箱或密码错误");
 			}
 		} catch (Exception e) {
 			logger.error("登陆失败：loginName:"+loginName+";",e);
@@ -105,5 +109,29 @@ public class LoginController {
 		System.out.println(result.getStatus());
 		return result;
 	}
+	
+	
+	//激活用户
+	@RequestMapping("/active/{email}/{pd}/{activeCode}")
+	public String active(HttpServletRequest request,@PathVariable("email") String  email,@PathVariable("pd") String  pd,@PathVariable("activeCode") String activeCode,HttpSession session){
+		
+		//从redis中取出来
+		String srcActiveCode;
+		try {
+			srcActiveCode = RedisTools.get("INOTE_ACTIVECODE_KEY:"+email+":"+pd);
+		
+		
+		if(((String) srcActiveCode).intern()==activeCode.intern()){
+			if(loginService.activeUser(email,pd)){
+
+				return "login/showloginpage2";
+			}
+		}
+		} catch (Exception e) {
+			return "error/404";
+		}
+		return "login/toReg";
+	}
+	
 
 }

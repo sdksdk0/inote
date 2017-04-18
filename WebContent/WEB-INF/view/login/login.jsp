@@ -38,7 +38,7 @@
 				</div>
 			</div>
 			<ul id="header-nav">
-				<li > <img src="<%=basePath%>/images/logo.jpg.jpg" alt="云笔记"><a></a></li>
+				<li > <img src="<%=basePath%>/images/logo.jpg.jpg" alt="云笔记"></li>
 				<li class="nav-current" id="index-tab"><a
 					>首页</a></li>
 				<li id="noteintro-tab"><a target="_blank" href="http://localhost:8100/inote/login/showloginpage"

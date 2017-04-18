@@ -15,7 +15,9 @@
 
 <body>
 	<header class='clear_float'>
-		<div class="logo"></div>
+		<div class="logo">
+		 <img src="<%=basePath%>/images/logo.jpg.jpg" alt="云笔记"><a>
+		</div>
 		<div class="activity_btn">
 			<div class="activity_link">
 				<h4><a class="ac_link"  onclick="openActivity();">活动</a><i class='icon i_global'></i></h4>

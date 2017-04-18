@@ -22,7 +22,7 @@ public class Constants {
 	public static final String USER_NOTEBOOKINFO_CLU_CREATETIME="ct";//列2：用户注册时间
 	public static final String USER_NOTEBOOKINFO_CLU_PASSWORD="pwd";//列3：用户密码
 	public static final String USER_NOTEBOOKINFO_CLU_EMAIL="em";//列4：邮箱
-	
+	public static final String USER_NOTEBOOKINFO_CLU_TYPE="tp";//列5：用户状态
 	
 	/**笔记本信息**/
 	public static final String NOTEBOOK_TABLE_NAME="nb";//表名

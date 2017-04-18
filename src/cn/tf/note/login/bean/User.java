@@ -9,7 +9,7 @@ public class User implements Serializable{
     private int userId;
     private String loginName;
     private String password;
-    private int type;
+    private int type;  // 0:未激活   ，1已激活
     private long registTime;
 	private String personalMail;
 	public String getPersonalMail() {

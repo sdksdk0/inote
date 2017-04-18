@@ -134,7 +134,7 @@ function addNoteBook(title){
  *
  */
 function addNote(title){
-	return '<li class="book_list clear_float"><div class="col_li li_action clear_float hover_show"><div class="note_operation line-height"><div class="col_li delete_note" title="删除"><i class="icon i_delete"></i></div><div class="col_li move_note" title="移动"><i class="icon i_move"></i></div><div class="col_li no_action" title="wait"><i class="icon i_wait"></i></div><div class="col_li more_action"><i class="icon i_more"></i></div></div></div><div class="col_li li_title"><p class="line-height text_over"><i class="icon i_note"></i><span>'+title+'</span></p></div></li>';
+	return '<li class="book_list clear_float"><div class="col_li li_action clear_float hover_show"><div class="note_operation line-height"><div class="col_li delete_note" title="删除"><i class="icon i_delete"></i></div><div class="col_li move_note" title="移动"><i class="icon i_move"></i></div><div class="col_li share_note" title="分享"><i class="icon i_share"></i></div><div class="col_li more_action"><i class="icon i_more"></i></div></div></div><div class="col_li li_title"><p class="line-height text_over"><i class="icon i_note"></i><span>'+title+'</span></p></div></li>';
 }
 function addRecycleNote(title){
 	return '<li class="book_list clear_float"><div class="col_li li_action clear_float hover_show"><div class="note_operation line-height"><div class="col_li delete_note" title="删除"><i class="icon i_delete"></i></div><div class="col_li recycle_note" title="恢复"><i class="icon i_back"></i></div><div class="col_li no_action" title="wait"><i class="icon i_wait"></i></div><div class="col_li more_action"><i class="icon i_more"></i></div></div></div><div class="col_li li_title"><p class="line-height text_over"><i class="icon i_note"></i><span>'+title+'</span></p></div></li>';
@@ -762,9 +762,28 @@ $(function(){
 	 *
 	 */
 	$('.panel_can').on('click','.panel_shareNote .sure',function(){
-		//AJAX
-		show_success($('.alert_success_s'),'分享成功');
-		$('.cancle').trigger('click');
+		
+		
+		   // click_note($(this));
+		    var noteBookRowKey = $("#starBt").data("starBtRowKey");
+			$.ajax({
+				type : "post",
+				url : basePath +"note/shareNote",
+				async : false,
+				dataType : "json",
+				data: {"rowkey":noteBookRowKey},
+				success : function(data) {
+					//alert(data.allNoteBook);
+					if(data.noteList!=null){
+						//AJAX
+						show_success($('.alert_success_s'),'分享成功');
+						$('.cancle').trigger('click');
+					}
+				},
+				error:function(data) {
+					alert("no");
+				}
+			});
 	});
 	/*
 	 *单击回收站
