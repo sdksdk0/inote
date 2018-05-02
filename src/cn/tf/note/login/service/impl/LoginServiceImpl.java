@@ -167,7 +167,7 @@ public class LoginServiceImpl implements LoginService{
 					
 					Transport ts = session1.getTransport();
 
-					ts.connect("info@tianfang1314.cn", "87654320bB");
+					ts.connect("info@tianfang1314.cn", "111111");
 					ts.sendMessage(message, message.getAllRecipients());
 					ts.close();
 				
